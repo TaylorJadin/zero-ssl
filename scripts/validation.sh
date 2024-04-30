@@ -1,8 +1,8 @@
 #!/bin/bash
 PATH="$PATH:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin::/root/bin"
-SETTING_PATH="${DIR}/opt/letsencrypt/settings"
+SETTING_PATH="${DIR}/opt/zerossl/settings"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/..";
-log="${DIR}/var/log/letsencrypt.log"
+log="${DIR}/var/log/zerossl.log"
 function getLog(){
     [ -f $log ] && {
         echo '-------- log --------'
@@ -136,7 +136,7 @@ function parseDomains() {
 }
 
 function validateCertBot(){
-    [ -f "${DIR}/opt/letsencrypt/certbot-auto" ] && return 0  || { echo "Error: Certbot is not installed!"; exit 1 ; };
+    [ -f "${DIR}/opt/zerossl/certbot-auto" ] && return 0  || { echo "Error: Certbot is not installed!"; exit 1 ; };
 }
 
 function validateCustomSSL() {

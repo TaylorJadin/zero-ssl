@@ -1,7 +1,7 @@
 version: 1.3
 type: update
 build: 202402271353
-id: letsencrypt-ssl-addon
+id: zerossl-addon
 name: Let's Encrypt Free SSL
 
 categories:
@@ -34,7 +34,7 @@ targetNodes:
 
 homepage: https://github.com/taylorjadin/zerossl
 baseUrl: https://raw.githubusercontent.com/taylorjadin/zerossl/master
-logo: images/letsencrypt.png
+logo: images/zerossl.png
 
 description:
   text: /text/description.md
@@ -42,8 +42,8 @@ description:
     by either internal or custom domain name.
 
 globals:
-  scriptSufix: letsencrypt-ssl
-  app_id: letsencrypt-ssl-addon
+  scriptSufix: zerossl
+  app_id: zerossl-addon
 
 mixins:
   - configs/vers.yaml
@@ -134,7 +134,7 @@ onInstall:
 onUninstall:
   - checkClustering:
       nodeGroup: ${globals.nodeGroup}
-      app_id: letsencrypt-ssl-addon
+      app_id: zerossl-addon
   - if (globals.cluster):
       - markExecutedEnvFile:
           nodeGroup: ${targetNodes.nodeGroup}
@@ -219,7 +219,7 @@ actions:
   configure:
     - checkClustering:
         nodeGroup: ${globals.nodeGroup}
-        app_id: letsencrypt-ssl-addon
+        app_id: zerossl-addon
     - if (globals.cluster):
         - if (!globals.isOppositeExecuted):
             - markExecutedEnvFile:

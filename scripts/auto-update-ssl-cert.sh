@@ -9,7 +9,7 @@ SED=$(which sed)
 GIT=$(which git);
 BASE_REPO_URL="https://github.com/jelastic-jps/lets-encrypt"
 RAW_REPO_SCRIPS_URL="https://raw.githubusercontent.com/jelastic-jps/lets-encrypt/master/scripts/"
-SETTINGS_CUSTOM="/var/lib/jelastic/keys/letsencrypt/settings-custom"
+SETTINGS_CUSTOM="/var/lib/jelastic/keys/zerossl/settings-custom"
 
 [[ -z "$WGET" || -z "$OPENSSL" || -z "$GREP" || -z "$SED" || -z "$GIT" ]] && { echo "PATH not set with neccessary commands"; exit 3 ; }
 
@@ -45,7 +45,7 @@ function updateScripts(){
 
 updateScripts
 
-[ -f "${DIR}/opt/letsencrypt/settings"  ] && source "${DIR}/opt/letsencrypt/settings" || { echo "No settings available" ; exit 3 ; }
+[ -f "${DIR}/opt/zerossl/settings"  ] && source "${DIR}/opt/zerossl/settings" || { echo "No settings available" ; exit 3 ; }
 [ -f "${DIR}${SETTINGS_CUSTOM}"  ] && source "${DIR}${SETTINGS_CUSTOM}"
 [ -f "${DIR}/root/validation.sh"  ] && source "${DIR}/root/validation.sh" || { echo "No validation library available" ; exit 3 ; }
 
@@ -68,14 +68,14 @@ seconds_before_expire=$(( $DAYS_BEFORE_EXPIRE * 24 * 60 * 60 ));
 $( [[ -e /usr/bin/python ]] || ln -s /usr/bin/python3 /usr/bin/python )
 [[ -f "/var/lib/jelastic/SSL/jelastic.crt" && "$withExtIp" != "false" ]] && exp_date=$(jem ssl checkdomain | python -c "import sys, json; print (json.load(sys.stdin)['expiredate'])");
 
-[ -z "$exp_date" ] && { echo "$(date) - no certificates for update" >> /var/log/letsencrypt.log; exit 0; };
+[ -z "$exp_date" ] && { echo "$(date) - no certificates for update" >> /var/log/zerossl.log; exit 0; };
 
 _exp_date_unixtime=$(date --date="$exp_date" "+%s");
 _cur_date_unixtime=$(date "+%s");
 _delta_time=$(( $_exp_date_unixtime - $_cur_date_unixtime  ));
 
 [[ $_delta_time -le $seconds_before_expire ]] && {
-    echo "$(date) - update required" >> /var/log/letsencrypt.log;
+    echo "$(date) - update required" >> /var/log/zerossl.log;
     validateLatestVersion
     resp=$($WGET --no-check-certificate -qO- "${auto_update_url}");
     [[ $? -ne 0 ]] && [[ -z $resp ]] && resp="Temporary network Issue";

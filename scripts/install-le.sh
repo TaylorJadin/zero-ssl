@@ -58,11 +58,11 @@ echo "Installing required packages"
     CLIENT_VERSION=$(sed -n "s/.*version_acme-sh:.\(.*\)/\1/p" /tmp/${VERS_FILE})
   }
 
-  [ ! -f "${DIR}/opt/letsencrypt/acme.sh" ] && {
-    [ -d "${DIR}/opt/letsencrypt" ] && mv ${DIR}/opt/letsencrypt ${DIR}/opt/letsencrypt-certbot;
-    git clone -b ${CLIENT_VERSION} https://github.com/acmesh-official/acme.sh ${DIR}/opt/letsencrypt;
+  [ ! -f "${DIR}/opt/zerossl/acme.sh" ] && {
+    [ -d "${DIR}/opt/zerossl" ] && mv ${DIR}/opt/zerossl ${DIR}/opt/zerossl-certbot;
+    git clone -b ${CLIENT_VERSION} https://github.com/acmesh-official/acme.sh ${DIR}/opt/zerossl;
   }
-  cd $DIR/opt/letsencrypt/
+  cd $DIR/opt/zerossl/
   ./acme.sh --install --no-cron --accountemail $email
 }
 

@@ -1,8 +1,8 @@
 version: 1.3
 type: update
-build: 202402271353
+build: 20240430
 id: zerossl-addon
-name: Let's Encrypt Free SSL
+name: ZeroSSL
 
 categories:
 - apps/dev-and-admin-tools

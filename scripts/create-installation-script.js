@@ -3,7 +3,7 @@
 
 var baseDir          = getParam("baseDir", "/"),
     customDomains    = getParam("customDomains"),
-    scriptName       = getParam("scriptName", "${env.envName}-letsencrypt-ssl"),
+    scriptName       = getParam("scriptName", "${env.envName}-zerossl"),
     nodeId           = getParam("nodeId", ""),
     nodeGroup        = getParam("nodeGroup", ""),
     deployHook       = getParam("deployHook", ""),
@@ -14,7 +14,7 @@ var baseDir          = getParam("baseDir", "/"),
     withIntSSL       = getParam("withIntSSL", ""),
     webroot          = getParam("webroot", ""),
     webrootPath      = getParam("webrootPath", ""),
-    appId            = getParam("appId", "letsencrypt-ssl-addon"),
+    appId            = getParam("appId", "zerossl-addon"),
     fallbackToX1     = getParam("fallbackToX1", ""),
     test             = getParam("test", ""),
     clientVersion    = getParam("clientVersion", "");

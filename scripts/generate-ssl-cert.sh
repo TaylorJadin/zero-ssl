@@ -1,8 +1,8 @@
 #!/bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/..";
-DEFAULT_LOG_FILE=$DIR/var/log/letsencrypt/letsencrypt.log-$(date '+%s')
+DEFAULT_LOG_FILE=$DIR/var/log/zerossl/zerossl.log-$(date '+%s')
 KEYS_DIR="$DIR/var/lib/jelastic/keys/"
-SETTINGS="$DIR/opt/letsencrypt/settings"
+SETTINGS="$DIR/opt/zerossl/settings"
 DOMAIN_SEP=" -d "
 GENERAL_RESULT_ERROR=21
 TOO_MANY_CERTS=22
@@ -16,10 +16,10 @@ counter=1
 [ -f "${DIR}/root/validation.sh" ] && source "${DIR}/root/validation.sh" || { echo "No validation library available" ; exit 3 ; }
 
 #To be sure that r/w access
-mkdir -p /etc/letsencrypt/
-#chown -R jelastic:jelastic /etc/letsencrypt/
+mkdir -p /etc/zerossl/
+#chown -R jelastic:jelastic /etc/zerossl/
 
-cd "${DIR}/opt/letsencrypt"
+cd "${DIR}/opt/zerossl"
 
 PROXY_PORT=12347
 LE_PORT=12348
@@ -46,7 +46,7 @@ skipped_domains=$(echo $skipped_domains | sed -r 's/\s+/ -d /g');
 #Kill hanged certificate requests
 killall -9 tinyproxy > /dev/null 2>&1
 
-mkdir -p $DIR/var/log/letsencrypt
+mkdir -p $DIR/var/log/zerossl
 
 [[ "$webroot" == "false" ]] && {
     service tinyproxy start || { echo "Failed to start proxy server" ; exit 3 ; }
@@ -73,7 +73,7 @@ do
   [[ -z $domain ]] && break;
   LOG_FILE=$DEFAULT_LOG_FILE"-"$counter
   
-  resp=$($DIR/opt/letsencrypt/acme.sh --issue $params $test_params --listen-v6 -k 2048 --domain $domain --nocron -f --log-level 2 --log $LOG_FILE 2>&1)
+  resp=$($DIR/opt/zerossl/acme.sh --issue $params $test_params --listen-v6 -k 2048 --domain $domain --nocron -f --log-level 2 --log $LOG_FILE 2>&1)
 
   grep -q 'Cert success' $LOG_FILE && grep -q "BEGIN CERTIFICATE" $LOG_FILE && result_code=0 || result_code=$GENERAL_RESULT_ERROR
 

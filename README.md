@@ -1,4 +1,4 @@
-# Zero Add-On for Automated SSL Certificates Configuration
+# ZeroSSL Add-On for Automated SSL Certificates Configuration
 
 **ZeroSSL** is a free and open Certificate Authority, that simplifies and automates processes of browser-trusted SSL certificates issuing and appliance. Using this package you can automatically install ZeroSSL as an add-on to your environment.
 
